@@ -20,13 +20,7 @@ const GEN_SALT_ROUNDS = 10;
 export class UsersService {
   private users: User[];
 
-  constructor(private userRepository: UserRepository) {
-    this.users = [];
-  }
-
-  // findUserByName = async (username: string): Promise<User | undefined> => {
-  //   return this.users.find((user) => username === user.name);
-  // };
+  constructor(private userRepository: UserRepository) {}
 
   async findUserById(userId: number): Promise<User> {
     return this.userRepository.findOne({ userId });
@@ -59,7 +53,6 @@ export class UsersService {
       email: data.email,
       password: hashedPassword,
     };
-    this.users.push(newUser);
 
     return this.userRepository.create(newUser);
   }
