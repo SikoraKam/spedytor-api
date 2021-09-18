@@ -1,25 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './user.schema';
-import { FilterQuery, Model } from 'mongoose';
-import * as cluster from 'cluster';
 import { UserRepository } from './user.repository';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 
 const GEN_SALT_ROUNDS = 10;
 
-// export type User = {
-//   userId: number;
-//   username: string;
-//   password: string;
-// };
-
 @Injectable()
 export class UsersService {
-  private users: User[];
-
   constructor(private userRepository: UserRepository) {}
 
   async findUserById(userId: number): Promise<User> {
