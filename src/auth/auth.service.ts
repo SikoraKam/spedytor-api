@@ -1,4 +1,3 @@
-import * as jwt from 'jsonwebtoken';
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
