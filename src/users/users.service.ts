@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { User, UserDocument } from './user.schema';
+import { User } from './user.schema';
 import { UserRepository } from './user.repository';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
@@ -41,6 +41,7 @@ export class UsersService {
       lastName: data.lastName,
       email: data.email,
       password: hashedPassword,
+      profileType: data.profileType,
     };
 
     return this.userRepository.create(newUser);
