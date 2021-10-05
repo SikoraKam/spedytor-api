@@ -11,15 +11,15 @@ const GEN_SALT_ROUNDS = 10;
 export class UsersService {
   constructor(private userRepository: UserRepository) {}
 
-  async findUserById(userId: number): Promise<User> {
-    return this.userRepository.findOne({ userId });
-  }
-
   async findUserByEmail(email: string): Promise<User> {
     return this.userRepository.findOne({ email });
   }
   async findUsers(): Promise<User[]> {
     return this.userRepository.findAll({});
+  }
+
+  async findUser(userId: string): Promise<User> {
+    return this.userRepository.findOne({ userId });
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
@@ -33,7 +33,7 @@ export class UsersService {
   async register(data: any): Promise<any> {
     const salt = await bcrypt.genSalt(GEN_SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(data.password, salt);
-    const userId = Date.now();
+    const userId = Date.now().toString();
 
     const newUser = {
       userId: userId,

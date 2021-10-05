@@ -8,11 +8,11 @@ export class UserRepository {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async findOne(userFilterQuery: FilterQuery<UserDocument>): Promise<User> {
-    return this.userModel.findOne(userFilterQuery).lean();
+    return this.userModel.findOne(userFilterQuery);
   }
 
   async findAll(usersFilterQuery: FilterQuery<UserDocument>): Promise<User[]> {
-    return this.userModel.find(usersFilterQuery);
+    return this.userModel.find(usersFilterQuery).lean();
   }
 
   async create(user: User): Promise<UserDocument> {
