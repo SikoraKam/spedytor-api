@@ -14,6 +14,12 @@ export class OrdersService {
     });
   }
 
+  async findOrdersFromUser(forwarderId: string): Promise<Order[]> {
+    return this.orderRepo.findAll({
+      forwarderId: new mongoose.Types.ObjectId(forwarderId),
+    });
+  }
+
   async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
     return this.orderRepo.create(createOrderDto);
   }

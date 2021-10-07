@@ -31,7 +31,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Patch(':userId')
   async updateUserById(
-    @Param('userId') userId: number,
+    @Param('userId') userId: string,
     @Body() updateUserBody: UpdateUserDto,
   ): Promise<User> {
     return this.usersService.updateUser(userId, updateUserBody);

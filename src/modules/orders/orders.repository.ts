@@ -11,7 +11,7 @@ export class OrdersRepository {
   ) {}
 
   async findOne(orderFilterQuery: FilterQuery<OrderDocument>): Promise<Order> {
-    return this.orderModel.findOne(orderFilterQuery).lean();
+    return this.orderModel.findOne(orderFilterQuery);
   }
 
   async findAll(

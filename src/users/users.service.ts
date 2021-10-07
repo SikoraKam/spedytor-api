@@ -26,7 +26,7 @@ export class UsersService {
     return this.register(createUserDto);
   }
 
-  async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+  async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     return this.userRepository.findOneAndUpdate({ id }, updateUserDto);
   }
 

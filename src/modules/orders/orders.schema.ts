@@ -1,5 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Forwarder } from '../forwarders/forwarders.schema';
 import mongoose from 'mongoose';
 
 export type OrderDocument = Order & Document;
@@ -18,8 +17,8 @@ export class Order {
   @Prop()
   placeEnd: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Forwarder' })
-  forwarderId: Forwarder;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  forwarderId: mongoose.Types.ObjectId;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
