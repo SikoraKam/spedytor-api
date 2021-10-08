@@ -19,6 +19,9 @@ export class Order {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   forwarderId: mongoose.Types.ObjectId;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  providerId: mongoose.Types.ObjectId;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
