@@ -11,6 +11,7 @@ import { UsersService } from './users.service';
 import { User } from './user.schema';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import * as mongoose from 'mongoose';
 
 @Controller('users')
 export class UserController {
@@ -31,7 +32,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Patch(':userId')
   async updateUserById(
-    @Param('userId') userId: string,
+    @Param('userId') userId: mongoose.Types.ObjectId,
     @Body() updateUserBody: UpdateUserDto,
   ): Promise<User> {
     return this.usersService.updateUser(userId, updateUserBody);
