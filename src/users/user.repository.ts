@@ -12,7 +12,7 @@ export class UserRepository {
   }
 
   async findAll(usersFilterQuery: FilterQuery<UserDocument>): Promise<User[]> {
-    return this.userModel.find(usersFilterQuery);
+    return this.userModel.find(usersFilterQuery).lean();
   }
 
   async create(user: User): Promise<UserDocument> {
