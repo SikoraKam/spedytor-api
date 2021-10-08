@@ -4,6 +4,7 @@ import { User } from './user.schema';
 import { UserRepository } from './user.repository';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
+import * as mongoose from 'mongoose';
 
 const GEN_SALT_ROUNDS = 10;
 
@@ -18,7 +19,7 @@ export class UsersService {
     return this.userRepository.findAll({});
   }
 
-  async findUser(userId: string): Promise<User> {
+  async findUser(userId: mongoose.Types.ObjectId): Promise<User> {
     return this.userRepository.findOne({ userId });
   }
 
@@ -26,17 +27,18 @@ export class UsersService {
     return this.register(createUserDto);
   }
 
-  async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  async updateUser(
+    id: mongoose.Types.ObjectId,
+    updateUserDto: UpdateUserDto,
+  ): Promise<User> {
     return this.userRepository.findOneAndUpdate({ id }, updateUserDto);
   }
 
   async register(data: any): Promise<any> {
     const salt = await bcrypt.genSalt(GEN_SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(data.password, salt);
-    const userId = Date.now().toString();
 
     const newUser = {
-      userId: userId,
       name: data.name,
       lastName: data.lastName,
       email: data.email,
