@@ -52,6 +52,12 @@ export class OrdersController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('places/:orderId')
+  async getOrderByIdWithPopulatedPlaces(@Param('orderId') orderId: string) {
+    return this.ordersService.findOrderByIdWithPopulatedPlaces(orderId);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Post()
   async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
     return this.ordersService.createOrder(createOrderDto);

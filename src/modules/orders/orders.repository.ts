@@ -20,6 +20,12 @@ export class OrdersRepository {
     return this.orderModel.find(ordersFilterQuery);
   }
 
+  async findOneWithPlacesPopulated(
+    orderFilterQuery: FilterQuery<OrderDocument>,
+  ): Promise<Order> {
+    return this.orderModel.findOne(orderFilterQuery).populate('destinations');
+  }
+
   async create(orderDto: CreateOrderDto): Promise<OrderDocument> {
     const newOrder = new this.orderModel(orderDto);
     return newOrder.save();
