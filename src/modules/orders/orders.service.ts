@@ -26,7 +26,7 @@ export class OrdersService {
     providerId: mongoose.Types.ObjectId,
   ): Promise<Order[]> {
     return this.orderRepo.findAll({
-      forwarderId: new mongoose.Types.ObjectId(providerId),
+      providerId: new mongoose.Types.ObjectId(providerId),
     });
   }
 

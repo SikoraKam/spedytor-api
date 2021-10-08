@@ -7,7 +7,7 @@ export type OrderDocument = Order & Document;
 export class Order {
   @Prop()
   dateStart: Date;
-
+  u;
   @Prop()
   dateEnd: Date;
 
