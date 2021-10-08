@@ -14,11 +14,19 @@ export class OrdersService {
     });
   }
 
-  async findOrdersFromUser(
+  async findOrdersByForwarderId(
     forwarderId: mongoose.Types.ObjectId,
   ): Promise<Order[]> {
     return this.orderRepo.findAll({
       forwarderId: new mongoose.Types.ObjectId(forwarderId),
+    });
+  }
+
+  async findOrdersByProviderId(
+    providerId: mongoose.Types.ObjectId,
+  ): Promise<Order[]> {
+    return this.orderRepo.findAll({
+      providerId: new mongoose.Types.ObjectId(providerId),
     });
   }
 

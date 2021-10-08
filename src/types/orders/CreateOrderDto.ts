@@ -4,4 +4,5 @@ export class CreateOrderDto {
   placeStart: string;
   placeEnd: string;
   forwarderId: string;
+  providerId: string;
 }

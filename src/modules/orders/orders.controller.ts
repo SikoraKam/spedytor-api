@@ -11,6 +11,7 @@ import { OrdersService } from './orders.service';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CreateOrderDto } from '../../types/orders/CreateOrderDto';
 import { Order } from './orders.schema';
+import * as mongoose from 'mongoose';
 
 @Controller('orders')
 export class OrdersController {
@@ -23,9 +24,31 @@ export class OrdersController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get()
-  async getOrdersByUserId(@Request() req) {
-    return this.ordersService.findOrdersFromUser(req.user.userId);
+  @Get('forwarder')
+  async getOrdersForForwarder(@Request() req) {
+    return this.ordersService.findOrdersByForwarderId(req.user.userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('provider')
+  async getOrdersForProvider(@Request() req) {
+    return this.ordersService.findOrdersByProviderId(req.user.userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('provider/:providerId')
+  async getOrdersByProviderId(
+    @Param('providerId') providerId: mongoose.Types.ObjectId,
+  ) {
+    return this.ordersService.findOrdersByProviderId(providerId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('forwarder/:forwarderId')
+  async getOrdersByForwarderId(
+    @Param('forwarderId') forwarderId: mongoose.Types.ObjectId,
+  ) {
+    return this.ordersService.findOrdersByForwarderId(forwarderId);
   }
 
   @UseGuards(JwtAuthGuard)

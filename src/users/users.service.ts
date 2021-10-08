@@ -20,7 +20,9 @@ export class UsersService {
   }
 
   async findUser(userId: mongoose.Types.ObjectId): Promise<User> {
-    return this.userRepository.findOne({ userId });
+    return this.userRepository.findOne({
+      _id: new mongoose.Types.ObjectId(userId),
+    });
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
