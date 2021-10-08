@@ -14,7 +14,9 @@ export class OrdersService {
     });
   }
 
-  async findOrdersFromUser(forwarderId: string): Promise<Order[]> {
+  async findOrdersFromUser(
+    forwarderId: mongoose.Types.ObjectId,
+  ): Promise<Order[]> {
     return this.orderRepo.findAll({
       forwarderId: new mongoose.Types.ObjectId(forwarderId),
     });

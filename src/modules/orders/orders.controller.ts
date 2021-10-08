@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Injectable,
   Param,
   UseGuards,
   Request,
