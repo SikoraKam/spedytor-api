@@ -23,7 +23,11 @@ export class OrdersRepository {
   async findOneWithPlacesPopulated(
     orderFilterQuery: FilterQuery<OrderDocument>,
   ): Promise<Order> {
-    return this.orderModel.findOne(orderFilterQuery).populate('destinations');
+    return this.orderModel
+      .findOne(orderFilterQuery)
+      .populate('destinations')
+      .populate('placeStart')
+      .exec();
   }
 
   async create(orderDto: CreateOrderDto): Promise<OrderDocument> {

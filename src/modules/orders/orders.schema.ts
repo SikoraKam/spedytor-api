@@ -20,7 +20,7 @@ export class Order {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Place' })
   placeStart: mongoose.Types.ObjectId;
 
-  @Prop([{ type: mongoose.Schema.Types.ObjectId, reg: 'Place' }])
+  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Place' }])
   destinations: mongoose.Types.ObjectId[];
 }
 
