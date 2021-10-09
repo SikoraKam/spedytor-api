@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { OrdersModule } from './modules/orders/orders.module';
+import { PlacesModule } from './modules/places/places.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { OrdersModule } from './modules/orders/orders.module';
     AuthModule,
     UsersModule,
     OrdersModule,
+    PlacesModule,
   ],
   controllers: [AppController],
   providers: [],

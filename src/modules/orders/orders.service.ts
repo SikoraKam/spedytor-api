@@ -30,6 +30,12 @@ export class OrdersService {
     });
   }
 
+  async findOrderByIdWithPopulatedPlaces(orderId: string) {
+    return this.orderRepo.findOneWithPlacesPopulated({
+      _id: new mongoose.Types.ObjectId(orderId),
+    });
+  }
+
   async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
     return this.orderRepo.create(createOrderDto);
   }
