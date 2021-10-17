@@ -5,6 +5,7 @@ import { UserRepository } from './user.repository';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import * as mongoose from 'mongoose';
+import { ProfileType } from '../types/profileType';
 
 const GEN_SALT_ROUNDS = 10;
 
@@ -17,6 +18,10 @@ export class UsersService {
   }
   async findUsers(): Promise<User[]> {
     return this.userRepository.findAll({});
+  }
+
+  async findUsersByType(profileType: ProfileType): Promise<User[]> {
+    return this.userRepository.findAll({ profileType });
   }
 
   async findUser(userId: mongoose.Types.ObjectId): Promise<User> {
