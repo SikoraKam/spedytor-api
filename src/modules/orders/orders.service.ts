@@ -17,7 +17,7 @@ export class OrdersService {
   async findOrdersByForwarderId(
     forwarderId: mongoose.Types.ObjectId,
   ): Promise<Order[]> {
-    return this.orderRepo.findAll({
+    return this.orderRepo.findAllWithPopulated({
       forwarderId: new mongoose.Types.ObjectId(forwarderId),
     });
   }
@@ -25,13 +25,13 @@ export class OrdersService {
   async findOrdersByProviderId(
     providerId: mongoose.Types.ObjectId,
   ): Promise<Order[]> {
-    return this.orderRepo.findAll({
+    return this.orderRepo.findAllWithPopulated({
       providerId: new mongoose.Types.ObjectId(providerId),
     });
   }
 
   async findOrderByIdWithPopulatedPlaces(orderId: string) {
-    return this.orderRepo.findOneWithPlacesPopulated({
+    return this.orderRepo.findOneWithPopulated({
       _id: new mongoose.Types.ObjectId(orderId),
     });
   }
