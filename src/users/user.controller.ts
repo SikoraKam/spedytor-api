@@ -12,6 +12,7 @@ import { User } from './user.schema';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import * as mongoose from 'mongoose';
+import { ProfileType } from '../types/profileType';
 
 @Controller('users')
 export class UserController {
@@ -27,6 +28,12 @@ export class UserController {
   @Get()
   async getAllUsers(): Promise<User[]> {
     return this.usersService.findUsers();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('providers')
+  async getProviders(): Promise<User[]> {
+    return this.usersService.findUsersByType(ProfileType.Dostawca);
   }
 
   @UseGuards(JwtAuthGuard)
