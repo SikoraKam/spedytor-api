@@ -13,10 +13,10 @@ export class Order {
   dateEnd: Date;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  forwarderId: mongoose.Types.ObjectId;
+  forwarder: mongoose.Types.ObjectId;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  providerId: mongoose.Types.ObjectId;
+  provider: mongoose.Types.ObjectId;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Place' })
   placeStart: mongoose.Types.ObjectId;

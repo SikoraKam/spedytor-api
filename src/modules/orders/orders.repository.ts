@@ -27,8 +27,8 @@ export class OrdersRepository {
       .find(orderFilterQuery)
       .populate('destinations')
       .populate('placeStart')
-      .populate('forwarderId')
-      .populate('providerId')
+      .populate('forwarder')
+      .populate('provider')
       .exec();
   }
 
@@ -39,8 +39,8 @@ export class OrdersRepository {
       .findOne(orderFilterQuery)
       .populate('destinations')
       .populate('placeStart')
-      .populate('forwarderId')
-      .populate('providerId')
+      .populate('forwarder')
+      .populate('provider')
       .exec();
   }
 

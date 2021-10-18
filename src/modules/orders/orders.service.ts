@@ -18,7 +18,7 @@ export class OrdersService {
     forwarderId: mongoose.Types.ObjectId,
   ): Promise<Order[]> {
     return this.orderRepo.findAllWithPopulated({
-      forwarderId: new mongoose.Types.ObjectId(forwarderId),
+      forwarder: new mongoose.Types.ObjectId(forwarderId),
     });
   }
 
@@ -26,7 +26,7 @@ export class OrdersService {
     providerId: mongoose.Types.ObjectId,
   ): Promise<Order[]> {
     return this.orderRepo.findAllWithPopulated({
-      providerId: new mongoose.Types.ObjectId(providerId),
+      provider: new mongoose.Types.ObjectId(providerId),
     });
   }
 
