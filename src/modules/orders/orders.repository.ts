@@ -20,13 +20,27 @@ export class OrdersRepository {
     return this.orderModel.find(ordersFilterQuery);
   }
 
-  async findOneWithPlacesPopulated(
+  async findAllWithPopulated(
+    orderFilterQuery: FilterQuery<OrderDocument>,
+  ): Promise<Order[]> {
+    return this.orderModel
+      .find(orderFilterQuery)
+      .populate('destinations')
+      .populate('placeStart')
+      .populate('forwarder')
+      .populate('provider')
+      .exec();
+  }
+
+  async findOneWithPopulated(
     orderFilterQuery: FilterQuery<OrderDocument>,
   ): Promise<Order> {
     return this.orderModel
       .findOne(orderFilterQuery)
       .populate('destinations')
       .populate('placeStart')
+      .populate('forwarder')
+      .populate('provider')
       .exec();
   }
 

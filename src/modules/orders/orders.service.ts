@@ -17,21 +17,21 @@ export class OrdersService {
   async findOrdersByForwarderId(
     forwarderId: mongoose.Types.ObjectId,
   ): Promise<Order[]> {
-    return this.orderRepo.findAll({
-      forwarderId: new mongoose.Types.ObjectId(forwarderId),
+    return this.orderRepo.findAllWithPopulated({
+      forwarder: new mongoose.Types.ObjectId(forwarderId),
     });
   }
 
   async findOrdersByProviderId(
     providerId: mongoose.Types.ObjectId,
   ): Promise<Order[]> {
-    return this.orderRepo.findAll({
-      providerId: new mongoose.Types.ObjectId(providerId),
+    return this.orderRepo.findAllWithPopulated({
+      provider: new mongoose.Types.ObjectId(providerId),
     });
   }
 
   async findOrderByIdWithPopulatedPlaces(orderId: string) {
-    return this.orderRepo.findOneWithPlacesPopulated({
+    return this.orderRepo.findOneWithPopulated({
       _id: new mongoose.Types.ObjectId(orderId),
     });
   }
