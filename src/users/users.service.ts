@@ -35,10 +35,10 @@ export class UsersService {
   }
 
   async updateUser(
-    id: mongoose.Types.ObjectId,
+    _id: mongoose.Types.ObjectId,
     updateUserDto: UpdateUserDto,
   ): Promise<User> {
-    return this.userRepository.findOneAndUpdate({ id }, updateUserDto);
+    return this.userRepository.findOneAndUpdate({ _id }, updateUserDto);
   }
 
   async register(data: any): Promise<any> {

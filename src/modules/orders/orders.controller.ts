@@ -6,12 +6,16 @@ import {
   Request,
   Post,
   Body,
+  Patch,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CreateOrderDto } from '../../types/orders/CreateOrderDto';
 import { Order } from './orders.schema';
 import * as mongoose from 'mongoose';
+import { UpdateUserDto } from '../../users/dto/updateUser.dto';
+import { User } from '../../users/user.schema';
+import { UpdateOrderDto } from '../../types/orders/UpdateOrderDto';
 
 @Controller('orders')
 export class OrdersController {
@@ -61,5 +65,14 @@ export class OrdersController {
   @Post()
   async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
     return this.ordersService.createOrder(createOrderDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':orderId')
+  async updateOrderById(
+    @Param('orderId') orderId: mongoose.Types.ObjectId,
+    @Body() updateOrderBody: UpdateOrderDto,
+  ): Promise<Order> {
+    return this.ordersService.updateOrder(orderId, updateOrderBody);
   }
 }

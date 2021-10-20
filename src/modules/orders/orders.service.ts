@@ -3,6 +3,7 @@ import { OrdersRepository } from './orders.repository';
 import { Order } from './orders.schema';
 import * as mongoose from 'mongoose';
 import { CreateOrderDto } from '../../types/orders/CreateOrderDto';
+import { UpdateOrderDto } from '../../types/orders/UpdateOrderDto';
 
 @Injectable()
 export class OrdersService {
@@ -38,5 +39,12 @@ export class OrdersService {
 
   async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
     return this.orderRepo.create(createOrderDto);
+  }
+
+  async updateOrder(
+    _id: mongoose.Types.ObjectId,
+    updateOrderDto: UpdateOrderDto,
+  ): Promise<Order> {
+    return this.orderRepo.findOneAndUpdate({ _id }, updateOrderDto);
   }
 }
