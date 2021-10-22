@@ -13,6 +13,7 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import * as mongoose from 'mongoose';
 import { ProfileType } from '../types/profileType';
+import { UpdateUserRatingDto } from '../types/users/updateUserRatingDto';
 
 @Controller('users')
 export class UserController {
@@ -43,5 +44,14 @@ export class UserController {
     @Body() updateUserBody: UpdateUserDto,
   ): Promise<User> {
     return this.usersService.updateUser(userId, updateUserBody);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('rating/:userId')
+  async updateUserRatingByUserId(
+    @Param('userId') userId: mongoose.Types.ObjectId,
+    @Body() updateUserRatingBody: UpdateUserRatingDto,
+  ): Promise<User> {
+    return this.usersService.updateUserRating(userId, updateUserRatingBody);
   }
 }

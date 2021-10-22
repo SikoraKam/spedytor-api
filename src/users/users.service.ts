@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { User } from './user.schema';
 import { UserRepository } from './user.repository';
@@ -6,6 +6,7 @@ import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import * as mongoose from 'mongoose';
 import { ProfileType } from '../types/profileType';
+import { UpdateUserRatingDto } from '../types/users/updateUserRatingDto';
 
 const GEN_SALT_ROUNDS = 10;
 
@@ -39,6 +40,29 @@ export class UsersService {
     updateUserDto: UpdateUserDto,
   ): Promise<User> {
     return this.userRepository.findOneAndUpdate({ _id }, updateUserDto);
+  }
+
+  async updateUserRating(
+    _id: mongoose.Types.ObjectId,
+    updateUserDto: UpdateUserRatingDto,
+  ): Promise<User> {
+    const user = await this.userRepository.findOne({ _id });
+    if (user.profileType === ProfileType.Spedytor) {
+      throw new HttpException('Wrong profileType', HttpStatus.FORBIDDEN);
+    }
+
+    const { marks } = user;
+    marks.push(updateUserDto.mark);
+    const arrAvg = marks.reduce((a, b) => a + b, 0) / marks.length;
+
+    const updateUserRatingObject = {
+      marks: marks,
+      rating: arrAvg,
+    };
+    return this.userRepository.findOneAndUpdate(
+      { _id },
+      updateUserRatingObject,
+    );
   }
 
   async register(data: any): Promise<any> {
