@@ -8,6 +8,9 @@ export class Place {
   name: string;
 
   @Prop()
+  address: string;
+
+  @Prop()
   latitude: number;
 
   @Prop()
