@@ -5244,6 +5244,11 @@ tree-kill@1.2.2:
   resolved "https://registry.yarnpkg.com/tree-kill/-/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"
   integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
 
+ts-combinatorics@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ts-combinatorics/-/ts-combinatorics-1.0.0.tgz#597d8bb719d73bc3d760906753c3c9ed319fab03"
+  integrity sha512-Ck+9CKS+lZ277gvUSbrV99ZKLlgZCEANUIZNmOsf8749LQnJ6vYk92dWwaVdCOj4jdEc1TebC8Fu3i2aK0H6cA==
+
 ts-jest@^27.0.3:
   version "27.0.5"
   resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-27.0.5.tgz#0b0604e2271167ec43c12a69770f0bb65ad1b750"
