@@ -18,7 +18,6 @@ export class PlacesService {
 
   async generateDistances(placesArray: Place[]): Promise<any> {
     const distances = new TravellingSalesman(placesArray);
-    // return distances.generateDistanceBetweenEachPlace();
     return distances.travellingSalesmanProblem();
   }
 }
