@@ -19,4 +19,10 @@ export class PlaceController {
   async createPlace(@Body() createPlaceDto: CreatePlaceDto): Promise<Place> {
     return this.placesService.createPlace(createPlaceDto);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('tsp')
+  async solveTsp(@Body() places: Place[]): Promise<any> {
+    return await this.placesService.solveTSP(places);
+  }
 }
