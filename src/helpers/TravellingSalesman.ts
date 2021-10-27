@@ -63,10 +63,8 @@ export class TravellingSalesman {
   }
 
   async travellingSalesmanProblem() {
-    await this.generateArrayGraph();
-
     // index of value 0 in tempGraph represent position of city in places array.
-    console.log('Temporary graph representation', this.tempGraph);
+    await this.generateArrayGraph();
 
     const sourceVertexIndex = 0;
     let minPath = Number.MAX_VALUE;
