@@ -63,6 +63,11 @@ export class TravellingSalesman {
   }
 
   async travellingSalesmanProblem() {
+    if (this.places.length > 15) {
+      console.log('----Too many places - too big complexity---');
+      return [];
+    }
+
     // index of value 0 in tempGraph represent position of city in places array.
     await this.generateArrayGraph();
 
