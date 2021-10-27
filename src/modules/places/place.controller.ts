@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { PlacesService } from './places.service';
 import { CreatePlaceDto } from '../../types/places/CreatePlaceDto';
@@ -21,10 +21,8 @@ export class PlaceController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('distances')
-  async getDistances(@Body() places: Place[]): Promise<any> {
-    const x = await this.placesService.generateDistances(places);
-    console.log(x);
-    return x;
+  @Post('tsp')
+  async solveTsp(@Body() places: Place[]): Promise<any> {
+    return await this.placesService.solveTSP(places);
   }
 }

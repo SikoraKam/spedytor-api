@@ -16,8 +16,8 @@ export class PlacesService {
     return this.placeRepo.create(createPlaceDto);
   }
 
-  async generateDistances(placesArray: Place[]): Promise<any> {
-    const distances = new TravellingSalesman(placesArray);
-    return distances.travellingSalesmanProblem();
+  async solveTSP(placesArray: Place[]): Promise<any> {
+    const tsp = new TravellingSalesman(placesArray);
+    return tsp.travellingSalesmanProblem();
   }
 }
