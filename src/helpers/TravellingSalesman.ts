@@ -23,10 +23,10 @@ export class TravellingSalesman {
   getMinimalDistance() {
     return this.minimalDistance;
   }
-
-  getResultTour() {
-    return this.resultTour;
-  }
+  //
+  // getResultTour() {
+  //   return this.resultTour;
+  // }
 
   getResultPlaceOrder() {
     return this.resultPlaceOrder;
@@ -63,7 +63,7 @@ export class TravellingSalesman {
   }
 
   async travellingSalesmanProblem() {
-    if (this.places.length > 15) {
+    if (this.places.length > 11) {
       console.log('----Too many places - too big complexity---');
       return [];
     }
@@ -86,7 +86,7 @@ export class TravellingSalesman {
     // check every possible permutation
     for (const perm of permutationsArray) {
       let currentWeight = 0;
-      const tempTour = [];
+      // const tempTour = [];
 
       const tempResultPlaceOrder = [];
       tempResultPlaceOrder.push(this.places[sourceVertexIndex]);
@@ -95,22 +95,22 @@ export class TravellingSalesman {
       let i = sourceVertexIndex;
       for (const j of perm) {
         currentWeight += this.tempGraph[i][j];
-        tempTour.push(
-          `${this.tempPositionOfPlaceInGraph[i]} -> ${this.tempPositionOfPlaceInGraph[j]}`,
-        );
+        // tempTour.push(
+        //   `${this.tempPositionOfPlaceInGraph[i]} -> ${this.tempPositionOfPlaceInGraph[j]}`,
+        // );
         tempResultPlaceOrder.push(this.places[j]);
         i = j;
       }
       currentWeight += this.tempGraph[i][sourceVertexIndex];
-      tempTour.push(
-        `${this.tempPositionOfPlaceInGraph[i]} -> ${this.tempPositionOfPlaceInGraph[sourceVertexIndex]}`,
-      );
+      // tempTour.push(
+      //   `${this.tempPositionOfPlaceInGraph[i]} -> ${this.tempPositionOfPlaceInGraph[sourceVertexIndex]}`,
+      // );
       tempResultPlaceOrder.push(this.places[sourceVertexIndex]);
 
       if (currentWeight < minPath) {
         minPath = currentWeight;
-        this.resultTour = [];
-        this.resultTour = [...tempTour];
+        // this.resultTour = [];
+        // this.resultTour = [...tempTour];
 
         this.resultPlaceOrder = [];
         this.resultPlaceOrder = [...tempResultPlaceOrder];
