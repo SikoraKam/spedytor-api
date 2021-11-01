@@ -1,11 +1,13 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
   Post,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { PositionService } from './position.service';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
@@ -35,13 +37,18 @@ export class PositionController {
   @UseGuards(JwtAuthGuard)
   @Post()
   async createPosition(
-    @Body() createPositionDto: CreatePositionDto,
+    @Request() req,
+    @Body() createPosition: { latitude: number; longitude: number },
   ): Promise<Position> {
-    return this.positionService.createPosition(createPositionDto);
+    return this.positionService.createPosition(
+      req.user.userId,
+      createPosition.latitude,
+      createPosition.longitude,
+    );
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch(':positionId')
+  @Patch('positionId/:positionId')
   async updatePositionById(
     @Param('positionId') positionId: mongoose.Types.ObjectId,
     @Body() updatePositionDto: UpdatePositionDto,
@@ -53,14 +60,22 @@ export class PositionController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch('provider/:providerId')
+  @Patch('provider')
   async updatePositionByProvider(
-    @Param('providerId') providerId: mongoose.Types.ObjectId,
+    @Request() req,
     @Body() updatePositionDto: UpdatePositionDto,
   ): Promise<Position> {
     return this.positionService.updatePositionByProviderId(
-      providerId,
+      req.user.userId,
       updatePositionDto,
     );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('provider/:providerId')
+  async deletePositionByProviderId(
+    @Param('providerId') providerId: mongoose.Types.ObjectId,
+  ) {
+    await this.positionService.deleteByProviderId(providerId);
   }
 }

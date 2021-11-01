@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
 import { Position, PositionDocument } from './position.schema';
@@ -36,5 +36,14 @@ export class PositionRepository {
         new: true,
       })
       .populate('provider');
+  }
+
+  async delete(positionFilterQuery: FilterQuery<PositionDocument>) {
+    const result = await this.positionModel.findByIdAndDelete(
+      positionFilterQuery,
+    );
+    if (!result) {
+      throw new NotFoundException();
+    }
   }
 }

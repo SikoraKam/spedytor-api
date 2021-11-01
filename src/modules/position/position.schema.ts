@@ -1,5 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { User } from '../../users/user.schema';
 import * as mongoose from 'mongoose';
 
 export type PositionDocument = Position & Document;

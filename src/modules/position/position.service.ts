@@ -24,17 +24,23 @@ export class PositionService {
   }
 
   async createPosition(
-    createPositionDto: CreatePositionDto,
+    providerId: string,
+    latitude: number,
+    longitude: number,
   ): Promise<Position> {
-    return this.positionRepo.create(createPositionDto);
+    return this.positionRepo.create({
+      provider: providerId,
+      latitude,
+      longitude,
+    });
   }
 
   async updatePositionByProviderId(
-    providerId: mongoose.Types.ObjectId,
+    providerId: string,
     updatePositionDto: UpdatePositionDto,
   ): Promise<Position> {
     return this.positionRepo.update(
-      { provider: providerId },
+      { provider: new mongoose.Types.ObjectId(providerId) },
       updatePositionDto,
     );
   }
@@ -44,5 +50,15 @@ export class PositionService {
     updatePositionDto: UpdatePositionDto,
   ): Promise<Position> {
     return this.positionRepo.update({ _id: id }, updatePositionDto);
+  }
+
+  async deleteById(id: mongoose.Types.ObjectId) {
+    await this.positionRepo.delete({ _id: id });
+  }
+
+  async deleteByProviderId(providerId: mongoose.Types.ObjectId) {
+    await this.positionRepo.delete({
+      provider: new mongoose.Types.ObjectId(providerId),
+    });
   }
 }
