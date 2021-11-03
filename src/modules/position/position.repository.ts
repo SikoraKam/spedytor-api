@@ -39,7 +39,7 @@ export class PositionRepository {
   }
 
   async delete(positionFilterQuery: FilterQuery<PositionDocument>) {
-    const result = await this.positionModel.findByIdAndDelete(
+    const result = await this.positionModel.findOneAndDelete(
       positionFilterQuery,
     );
     if (!result) {

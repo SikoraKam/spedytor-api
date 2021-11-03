@@ -56,7 +56,7 @@ export class PositionService {
     await this.positionRepo.delete({ _id: id });
   }
 
-  async deleteByProviderId(providerId: mongoose.Types.ObjectId) {
+  async deleteByProviderId(providerId: string) {
     await this.positionRepo.delete({
       provider: new mongoose.Types.ObjectId(providerId),
     });
