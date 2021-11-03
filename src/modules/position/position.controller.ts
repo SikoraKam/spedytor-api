@@ -40,7 +40,6 @@ export class PositionController {
     @Request() req,
     @Body() createPosition: { latitude: number; longitude: number },
   ): Promise<Position> {
-    console.log('CREATE');
     return this.positionService.createPosition(
       req.user.userId,
       createPosition.latitude,
@@ -66,7 +65,6 @@ export class PositionController {
     @Request() req,
     @Body() updatePositionDto: UpdatePositionDto,
   ): Promise<Position> {
-    console.log('UPDATE');
     return this.positionService.updatePositionByProviderId(
       req.user.userId,
       updatePositionDto,
