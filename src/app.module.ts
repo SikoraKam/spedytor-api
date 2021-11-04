@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { OrdersModule } from './modules/orders/orders.module';
 import { PlacesModule } from './modules/places/places.module';
+import { PositionModule } from './modules/position/position.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { PlacesModule } from './modules/places/places.module';
     UsersModule,
     OrdersModule,
     PlacesModule,
+    PositionModule,
   ],
   controllers: [AppController],
   providers: [],
