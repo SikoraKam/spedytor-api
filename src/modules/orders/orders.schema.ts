@@ -26,6 +26,15 @@ export class Order {
 
   @Prop({ type: String, enum: OrderStatus })
   orderStatus: OrderStatus;
+
+  @Prop()
+  category: string;
+
+  @Prop()
+  weightInKg: number;
+
+  @Prop()
+  description: string;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

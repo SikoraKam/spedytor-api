@@ -13,8 +13,6 @@ import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CreateOrderDto } from '../../types/orders/CreateOrderDto';
 import { Order } from './orders.schema';
 import * as mongoose from 'mongoose';
-import { UpdateUserDto } from '../../users/dto/updateUser.dto';
-import { User } from '../../users/user.schema';
 import { UpdateOrderDto } from '../../types/orders/UpdateOrderDto';
 
 @Controller('orders')

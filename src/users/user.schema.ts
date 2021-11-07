@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ProfileType } from '../types/profileType';
+import mongoose from 'mongoose';
 
 export type UserDocument = User & Document;
 

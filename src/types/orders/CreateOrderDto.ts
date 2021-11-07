@@ -5,4 +5,7 @@ export class CreateOrderDto {
   provider: string;
   placeStart: string;
   destinations: string[];
+  category?: string;
+  weightInKg?: string;
+  description?: string;
 }
