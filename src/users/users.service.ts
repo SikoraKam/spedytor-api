@@ -7,6 +7,8 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 import * as mongoose from 'mongoose';
 import { ProfileType } from '../types/profileType';
 import { UpdateUserRatingDto } from '../types/users/updateUserRatingDto';
+import { NotificationPayload } from '../types/notifications/notificationPayload';
+import { sendPushNotificationViaExpoSdk } from '../helpers/expoPushNotification';
 
 const GEN_SALT_ROUNDS = 10;
 
@@ -78,5 +80,33 @@ export class UsersService {
     };
 
     return this.userRepository.create(newUser);
+  }
+
+  async updateExpoPushToken(id: string, token: string): Promise<User> {
+    return this.userRepository.findOneAndUpdate(
+      { _id: new mongoose.Types.ObjectId(id) },
+      { expo_token: token },
+    );
+  }
+
+  async deleteExpoPushToken(id: string): Promise<User> {
+    return this.userRepository.findOneAndUpdate(
+      { _id: new mongoose.Types.ObjectId(id) },
+      { expo_token: '' },
+    );
+  }
+
+  async sendPushNotification(
+    receiverId: mongoose.Types.ObjectId,
+    notificationPayload: NotificationPayload,
+  ) {
+    const receiver = await this.userRepository.findOne({ _id: receiverId });
+    const receiverPushToken = receiver.expo_token;
+    await sendPushNotificationViaExpoSdk(
+      receiverPushToken,
+      'Kliknij aby wyświetlić',
+      'Nowa wiadomość od dostawcy',
+      notificationPayload,
+    );
   }
 }

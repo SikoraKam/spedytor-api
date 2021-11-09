@@ -6,6 +6,8 @@ import {
   Patch,
   UseGuards,
   Request,
+  Delete,
+  Post,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.schema';
@@ -14,6 +16,8 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import * as mongoose from 'mongoose';
 import { ProfileType } from '../types/profileType';
 import { UpdateUserRatingDto } from '../types/users/updateUserRatingDto';
+import { UpdateUserExpoPushToken } from '../types/users/updateUserExpoPushToken';
+import { NotificationPayload } from '../types/notifications/notificationPayload';
 
 @Controller('users')
 export class UserController {
@@ -53,5 +57,32 @@ export class UserController {
     @Body() updateUserRatingBody: UpdateUserRatingDto,
   ): Promise<User> {
     return this.usersService.updateUserRating(userId, updateUserRatingBody);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('notifications')
+  async updateUserExpoPushTokenByUserId(
+    @Request() req,
+    @Body() updateUserExpoPushToken: UpdateUserExpoPushToken,
+  ): Promise<User> {
+    return this.usersService.updateExpoPushToken(
+      req.user.userId,
+      updateUserExpoPushToken.expo_token,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete()
+  async removeExpoPushTokenByUserId(@Request() req): Promise<User> {
+    return this.usersService.deleteExpoPushToken(req.user.userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('notifications/:userId')
+  async sendNotificationToUserById(
+    @Param('userId') userId: mongoose.Types.ObjectId,
+    @Body() notificationPayload: NotificationPayload,
+  ) {
+    await this.usersService.sendPushNotification(userId, notificationPayload);
   }
 }
