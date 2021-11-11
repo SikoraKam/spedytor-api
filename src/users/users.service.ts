@@ -61,10 +61,12 @@ export class UsersService {
       marks: marks,
       rating: arrAvg,
     };
-    return this.userRepository.findOneAndUpdate(
+    const x = await this.userRepository.findOneAndUpdate(
       { _id },
       updateUserRatingObject,
     );
+    console.log(x);
+    return x;
   }
 
   async register(data: any): Promise<any> {
@@ -83,10 +85,14 @@ export class UsersService {
   }
 
   async updateExpoPushToken(id: string, token: string): Promise<User> {
-    return this.userRepository.findOneAndUpdate(
+    console.log('ID IN SERVICE: ', id);
+    console.log('TOEKN PASSED:', token);
+    const x = await this.userRepository.findOneAndUpdate(
       { _id: new mongoose.Types.ObjectId(id) },
       { expo_token: token },
     );
+    console.log('++++++++> user with token: ', x);
+    return x;
   }
 
   async deleteExpoPushToken(id: string): Promise<User> {

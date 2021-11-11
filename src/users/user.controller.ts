@@ -60,11 +60,12 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch('notifications')
+  @Patch('notifications/pushToken')
   async updateUserExpoPushTokenByUserId(
     @Request() req,
     @Body() updateUserExpoPushToken: UpdateUserExpoPushToken,
   ): Promise<User> {
+    console.log('token OBJECT: : ', updateUserExpoPushToken);
     return this.usersService.updateExpoPushToken(
       req.user.userId,
       updateUserExpoPushToken.expo_token,
@@ -72,13 +73,15 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete()
+  @Delete('notifications/pushToken')
   async removeExpoPushTokenByUserId(@Request() req): Promise<User> {
-    return this.usersService.deleteExpoPushToken(req.user.userId);
+    const x = this.usersService.deleteExpoPushToken(req.user.userId);
+    console.log('REMOVED: ', x);
+    return x;
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('notifications/:userId')
+  @Post('notifications/pushToken/:userId')
   async sendNotificationToUserById(
     @Param('userId') userId: mongoose.Types.ObjectId,
     @Body() notificationPayload: NotificationPayload,
