@@ -8,4 +8,6 @@ export class CreateOrderDto {
   category?: string;
   weightInKg?: string;
   description?: string;
+  incoterm?: string;
+  truckType?: string;
 }

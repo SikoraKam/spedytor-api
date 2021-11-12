@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { PositionService } from './position.service';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
-import { CreatePositionDto } from '../../types/positions/CreatePositionDto';
 import { Position } from './position.schema';
 import * as mongoose from 'mongoose';
 import { UpdatePositionDto } from '../../types/positions/UpdatePositionDto';
