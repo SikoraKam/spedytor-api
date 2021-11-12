@@ -65,7 +65,6 @@ export class UserController {
     @Request() req,
     @Body() updateUserExpoPushToken: UpdateUserExpoPushToken,
   ): Promise<User> {
-    console.log('token OBJECT: : ', updateUserExpoPushToken);
     return this.usersService.updateExpoPushToken(
       req.user.userId,
       updateUserExpoPushToken.expo_token,
@@ -75,9 +74,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Delete('notifications/pushToken')
   async removeExpoPushTokenByUserId(@Request() req): Promise<User> {
-    const x = this.usersService.deleteExpoPushToken(req.user.userId);
-    console.log('REMOVED: ', x);
-    return x;
+    return this.usersService.deleteExpoPushToken(req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)

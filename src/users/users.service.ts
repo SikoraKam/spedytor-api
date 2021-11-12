@@ -61,12 +61,10 @@ export class UsersService {
       marks: marks,
       rating: arrAvg,
     };
-    const x = await this.userRepository.findOneAndUpdate(
+    return this.userRepository.findOneAndUpdate(
       { _id },
       updateUserRatingObject,
     );
-    console.log(x);
-    return x;
   }
 
   async register(data: any): Promise<any> {
@@ -85,14 +83,10 @@ export class UsersService {
   }
 
   async updateExpoPushToken(id: string, token: string): Promise<User> {
-    console.log('ID IN SERVICE: ', id);
-    console.log('TOEKN PASSED:', token);
-    const x = await this.userRepository.findOneAndUpdate(
+    return this.userRepository.findOneAndUpdate(
       { _id: new mongoose.Types.ObjectId(id) },
       { expo_token: token },
     );
-    console.log('++++++++> user with token: ', x);
-    return x;
   }
 
   async deleteExpoPushToken(id: string): Promise<User> {
@@ -108,10 +102,11 @@ export class UsersService {
   ) {
     const receiver = await this.userRepository.findOne({ _id: receiverId });
     const receiverPushToken = receiver.expo_token;
+    const receiverLastName = receiver.lastName;
     await sendPushNotificationViaExpoSdk(
       receiverPushToken,
       'Kliknij aby wyświetlić',
-      'Nowa wiadomość od dostawcy',
+      `Nowa wiadomość od dostawcy ${receiverLastName}`,
       notificationPayload,
     );
   }

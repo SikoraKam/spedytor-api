@@ -1,10 +1,11 @@
 import { Expo } from 'expo-server-sdk';
+import { NotificationPayload } from '../types/notifications/notificationPayload';
 
 export const sendPushNotificationViaExpoSdk = (
   receiverPushToken: string,
   pushNotificationBody: string,
   pushNotificationTitle: string,
-  pushNotificationData: { title: string; announcement: string },
+  pushNotificationData: NotificationPayload,
 ) => {
   // Create a new Expo SDK client
   // optionally providing an access token if you have enabled push security
@@ -12,23 +13,6 @@ export const sendPushNotificationViaExpoSdk = (
 
   // Create the messages that you want to send to clients
   const messages = [];
-  // for (const pushToken of somePushTokens) {
-  //   // Each push token looks like ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]
-  //
-  //   // Check that all your push tokens appear to be valid Expo push tokens
-  //   if (!Expo.isExpoPushToken(pushToken)) {
-  //     console.error(`Push token ${pushToken} is not a valid Expo push token`);
-  //     continue;
-  //   }
-  //
-  //   // Construct a message (see https://docs.expo.io/push-notifications/sending-notifications/)
-  //   messages.push({
-  //     to: pushToken,
-  //     sound: 'default',
-  //     body: 'This is a test notification',
-  //     data: { withSome: 'data' },
-  //   });
-  // }
   const pushToken = receiverPushToken;
   // Each push token looks like ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]
 
@@ -46,9 +30,9 @@ export const sendPushNotificationViaExpoSdk = (
     data: {
       announcement: pushNotificationData?.announcement,
       title: pushNotificationData.title,
+      orderObject: pushNotificationData.orderObject,
     },
   });
-  console.log('SEND ----------------------------');
 
   // The Expo push notification service accepts batches of notifications so
   // that you don't need to send 1000 requests to send 1000 notifications. We
@@ -107,7 +91,7 @@ export const sendPushNotificationViaExpoSdk = (
     for (const chunk of receiptIdChunks) {
       try {
         const receipts = await expo.getPushNotificationReceiptsAsync(chunk);
-        console.log(receipts);
+        // console.log(receipts);
 
         // The receipts specify whether Apple or Google successfully received the
         // notification and information about an error, if one occurred.
