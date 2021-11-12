@@ -35,12 +35,12 @@ export class Order {
 
   @Prop()
   description: string;
-  //
-  // @Prop()
-  // incoterm: string;
-  //
-  // @Prop()
-  // truckType: string;
+
+  @Prop()
+  incoterm: string;
+
+  @Prop()
+  truckType: string;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
