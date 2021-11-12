@@ -27,6 +27,9 @@ export class User {
 
   @Prop()
   rating: number;
+
+  @Prop()
+  expo_token: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
