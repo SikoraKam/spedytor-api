@@ -42,12 +42,12 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch(':userId')
+  @Patch()
   async updateUserById(
-    @Param('userId') userId: mongoose.Types.ObjectId,
+    @Request() req,
     @Body() updateUserBody: UpdateUserDto,
   ): Promise<User> {
-    return this.usersService.updateUser(userId, updateUserBody);
+    return this.usersService.updateUser(req.user.userId, updateUserBody);
   }
 
   @UseGuards(JwtAuthGuard)
