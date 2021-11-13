@@ -42,12 +42,18 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch(':userId')
+  @Get('forwarders')
+  async getForwarders(): Promise<User[]> {
+    return this.usersService.findUsersByType(ProfileType.Spedytor);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch()
   async updateUserById(
-    @Param('userId') userId: mongoose.Types.ObjectId,
+    @Request() req,
     @Body() updateUserBody: UpdateUserDto,
   ): Promise<User> {
-    return this.usersService.updateUser(userId, updateUserBody);
+    return this.usersService.updateUser(req.user.userId, updateUserBody);
   }
 
   @UseGuards(JwtAuthGuard)

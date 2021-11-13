@@ -30,6 +30,18 @@ export class User {
 
   @Prop()
   expo_token: string;
+
+  @Prop()
+  phoneNumber: string;
+
+  @Prop()
+  preferredRatePerHour: string;
+
+  @Prop()
+  preferredStartPlaces: string;
+
+  @Prop()
+  additionalInfo: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
