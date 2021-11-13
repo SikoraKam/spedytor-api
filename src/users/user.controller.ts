@@ -42,6 +42,12 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('forwarders')
+  async getForwarders(): Promise<User[]> {
+    return this.usersService.findUsersByType(ProfileType.Spedytor);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Patch()
   async updateUserById(
     @Request() req,
