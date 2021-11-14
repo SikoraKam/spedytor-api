@@ -37,9 +37,6 @@ export class User {
   @Prop()
   preferredRatePerHour: string;
 
-  // @Prop()
-  // preferredStartPlaces: string;
-
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Place' }])
   availableStartPlaces: mongoose.Types.ObjectId[];
 
