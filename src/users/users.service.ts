@@ -32,6 +32,29 @@ export class UsersService {
       _id: new mongoose.Types.ObjectId(userId),
     });
   }
+  //
+  // async findProvidersWithMatchedStartPlace(
+  //   startPlaceId: mongoose.Types.ObjectId,
+  // ): Promise<User[]> {
+  //   const allProviders = await this.userRepository.findAll({
+  //     profileType: ProfileType.Dostawca,
+  //   });
+  //
+  //   const filtered = allProviders.filter((provider) => {
+  //     if (
+  //       !provider.availableStartPlaces ||
+  //       provider.availableStartPlaces.length === 0
+  //     ) {
+  //       return provider;
+  //     }
+  //
+  //     if (provider.availableStartPlaces.includes(startPlaceId)) {
+  //       return provider;
+  //     }
+  //   });
+  //
+  //   return filtered;
+  // }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     return this.register(createUserDto);

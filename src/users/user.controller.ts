@@ -46,6 +46,14 @@ export class UserController {
   async getForwarders(): Promise<User[]> {
     return this.usersService.findUsersByType(ProfileType.Spedytor);
   }
+  //
+  // @UseGuards(JwtAuthGuard)
+  // @Get('providers/:startPlaceId')
+  // async getProvidersByStartPlaceId(
+  //   @Param('startPlaceId') startPlaceId: mongoose.Types.ObjectId,
+  // ): Promise<User[]> {
+  //   return this.usersService.findProvidersWithMatchedStartPlace(startPlaceId);
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Patch()

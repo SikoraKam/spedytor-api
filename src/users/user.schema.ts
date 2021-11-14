@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ProfileType } from '../types/profileType';
+import * as mongoose from 'mongoose';
 
 export type UserDocument = User & Document;
 
@@ -36,8 +37,11 @@ export class User {
   @Prop()
   preferredRatePerHour: string;
 
-  @Prop()
-  preferredStartPlaces: string;
+  // @Prop()
+  // preferredStartPlaces: string;
+
+  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Place' }])
+  availableStartPlaces: mongoose.Types.ObjectId[];
 
   @Prop()
   additionalInfo: string;
