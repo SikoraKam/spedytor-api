@@ -90,6 +90,17 @@ export class UsersService {
     );
   }
 
+  async updateUserResetCode(
+    userId: mongoose.Types.ObjectId,
+    resetData: {
+      code: string;
+      expire_timestamp: number;
+      created_timestamp: number;
+    },
+  ) {
+    return this.userRepository.findOneAndUpdate({ _id: userId }, resetData);
+  }
+
   async register(data: any): Promise<any> {
     const salt = await bcrypt.genSalt(GEN_SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(data.password, salt);
