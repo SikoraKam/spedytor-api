@@ -42,6 +42,13 @@ export class User {
 
   @Prop()
   additionalInfo: string;
+
+  @Prop()
+  code: string;
+  @Prop()
+  created_timestamp: number;
+  @Prop()
+  expire_timestamp: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
