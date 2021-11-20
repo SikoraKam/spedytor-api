@@ -32,6 +32,18 @@ export class AuthService {
     return user;
   }
 
+  async updatePassword(data: {
+    code: string;
+    newPassword: string;
+    email: string;
+  }): Promise<any> {
+    return this.usersService.updatePassword(
+      data.code,
+      data.newPassword,
+      data.email,
+    );
+  }
+
   async sendCode(email: string): Promise<any> {
     const user = await this.usersService.findUserByEmail(email);
     if (!user) {
@@ -57,8 +69,6 @@ export class AuthService {
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const nodemailer = require('nodemailer');
-    console.log(process.env.MAIL_USER);
-    console.log(process.env.MAIL_PASSWORD);
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',

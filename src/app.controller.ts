@@ -35,4 +35,16 @@ export class AppController {
   async sendCode(@Body() passwordResetBody: { email: string }) {
     return this.authService.sendCode(passwordResetBody.email);
   }
+
+  @Post('auth/reset/password')
+  async resetPassword(
+    @Body()
+    newPasswordBody: {
+      code: string;
+      newPassword: string;
+      email: string;
+    },
+  ) {
+    return this.authService.updatePassword(newPasswordBody);
+  }
 }

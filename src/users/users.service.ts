@@ -116,7 +116,53 @@ export class UsersService {
     return this.userRepository.create(newUser);
   }
 
-  async updateExpoPushToken(id: string, token: string): Promise<User> {
+  async updatePassword(
+    code: string,
+    password: string,
+    email: string,
+  ): Promise<any> {
+    const user = await this.findUserByEmail(email);
+    if (!user) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: 'Nie znaleziono użytkownika z podanym mailem',
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const id = user._id;
+
+    if (user.code !== code || Date.now() > user.expire_timestamp) {
+      await this.userRepository.findOneAndUpdate(
+        { _id: id },
+        { code: '', expire_timestamp: 0, created_timestamp: 0 },
+      );
+
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'Zły lub przedawniony kod',
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    const salt = await bcrypt.genSalt(GEN_SALT_ROUNDS);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    await this.userRepository.findOneAndUpdate(
+      { _id: id },
+      { password: hashedPassword },
+    );
+    return this.userRepository.findOneAndUpdate(
+      { _id: id },
+      { code: '', expire_timestamp: 0, created_timestamp: 0 },
+    );
+  }
+
+  async updateExpoPushToken(id: string, token: string): Promise<any> {
     return this.userRepository.findOneAndUpdate(
       { _id: new mongoose.Types.ObjectId(id) },
       { expo_token: token },
