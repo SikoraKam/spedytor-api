@@ -135,16 +135,25 @@ export class UsersService {
     // @ts-ignore
     const id = user._id;
 
-    if (user.code !== code || Date.now() > user.expire_timestamp) {
+    if (Date.now() > user.expire_timestamp) {
       await this.userRepository.findOneAndUpdate(
         { _id: id },
         { code: '', expire_timestamp: 0, created_timestamp: 0 },
       );
-
       throw new HttpException(
         {
           status: HttpStatus.FORBIDDEN,
-          error: 'Zły lub przedawniony kod',
+          error: 'Przedawniony kod',
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    if (user.code !== code) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'Zły kod',
         },
         HttpStatus.FORBIDDEN,
       );
