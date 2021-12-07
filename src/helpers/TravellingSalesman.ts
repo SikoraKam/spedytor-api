@@ -4,9 +4,7 @@ import { Permutation } from 'ts-combinatorics';
 
 export class TravellingSalesman {
   private readonly places: Place[];
-  private placeNameDistanceMap = new Map(); // for displaying distances between each city
   private tempPositionOfPlaceInGraph: string[] = []; // indicates position of city in graph by city name
-  private resultTour: string[] = []; // result displayed in city names
   private resultPlaceOrder: Place[] = []; // result which include objects of Places
   private readonly tempGraph: number[][]; // temporary graph represented in 2d array to for travellingSalesmanProblem()
   private minimalDistance = -1;
@@ -22,32 +20,6 @@ export class TravellingSalesman {
 
   getMinimalDistance() {
     return this.minimalDistance;
-  }
-  //
-  // getResultTour() {
-  //   return this.resultTour;
-  // }
-
-  getResultPlaceOrder() {
-    return this.resultPlaceOrder;
-  }
-
-  getPlaceNameDistanceMap() {
-    return this.placeNameDistanceMap;
-  }
-
-  async generateDistanceBetweenEachPlace() {
-    for (let i = 0; i < this.places.length; i++) {
-      for (let j = i + 1; j < this.places.length; j++) {
-        const distanceObject = new Distance(this.places[i], this.places[j]);
-        const result = distanceObject.haversine_distance();
-        this.placeNameDistanceMap.set(
-          `${this.places[i].name}-${this.places[j].name}`,
-          result,
-        );
-      }
-    }
-    return this.placeNameDistanceMap;
   }
 
   async generateArrayGraph() {
@@ -86,7 +58,6 @@ export class TravellingSalesman {
     // check every possible permutation
     for (const perm of permutationsArray) {
       let currentWeight = 0;
-      // const tempTour = [];
 
       const tempResultPlaceOrder = [];
       tempResultPlaceOrder.push(this.places[sourceVertexIndex]);
@@ -95,28 +66,19 @@ export class TravellingSalesman {
       let i = sourceVertexIndex;
       for (const j of perm) {
         currentWeight += this.tempGraph[i][j];
-        // tempTour.push(
-        //   `${this.tempPositionOfPlaceInGraph[i]} -> ${this.tempPositionOfPlaceInGraph[j]}`,
-        // );
         tempResultPlaceOrder.push(this.places[j]);
         i = j;
       }
       currentWeight += this.tempGraph[i][sourceVertexIndex];
-      // tempTour.push(
-      //   `${this.tempPositionOfPlaceInGraph[i]} -> ${this.tempPositionOfPlaceInGraph[sourceVertexIndex]}`,
-      // );
       tempResultPlaceOrder.push(this.places[sourceVertexIndex]);
 
       if (currentWeight < minPath) {
         minPath = currentWeight;
-        // this.resultTour = [];
-        // this.resultTour = [...tempTour];
 
         this.resultPlaceOrder = [];
         this.resultPlaceOrder = [...tempResultPlaceOrder];
       }
     }
-
     this.minimalDistance = minPath;
     return this.resultPlaceOrder;
   }

@@ -10,23 +10,23 @@ export class Distance {
   }
 
   haversine_distance() {
-    const R = 6371.071; // Radius of the Earth in km
-    const rlat1 = this.place1.latitude * (Math.PI / 180); // Convert degrees to radians
-    const rlat2 = this.place2.latitude * (Math.PI / 180); // Convert degrees to radians
-    const difflat = rlat2 - rlat1; // Radian difference (latitudes)
-    const difflon =
-      (this.place1.longitude - this.place2.longitude) * (Math.PI / 180); // Radian difference (longitudes)
+    const R = 6371.071; // Promień Ziemi w kilometrach
+    const radiansLat1 = this.place1.latitude * (Math.PI / 180);
+    const radiansLat2 = this.place2.latitude * (Math.PI / 180);
+    const differenceLatitude = radiansLat2 - radiansLat1;
+    const differenceLongitude =
+      (this.place1.longitude - this.place2.longitude) * (Math.PI / 180);
 
     return (
       2 *
       R *
       Math.asin(
         Math.sqrt(
-          Math.sin(difflat / 2) * Math.sin(difflat / 2) +
-            Math.cos(rlat1) *
-              Math.cos(rlat2) *
-              Math.sin(difflon / 2) *
-              Math.sin(difflon / 2),
+          Math.sin(differenceLatitude / 2) * Math.sin(differenceLatitude / 2) +
+            Math.cos(radiansLat1) *
+              Math.cos(radiansLat2) *
+              Math.sin(differenceLongitude / 2) *
+              Math.sin(differenceLongitude / 2),
         ),
       )
     );
