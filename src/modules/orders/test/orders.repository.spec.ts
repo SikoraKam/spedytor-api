@@ -84,13 +84,13 @@ describe('OrdersRepository', () => {
           );
         });
 
-        test('then it should call the userModel', () => {
+        test('then it should call the orderModel', () => {
           expect(
             orderModel.findOneAndUpdate,
           ).toHaveBeenCalledWith(orderFilterQuery, orderStub(), { new: true });
         });
 
-        test('then it should return a user', () => {
+        test('then it should return a order', () => {
           expect(order).toEqual(orderStub());
         });
       });
@@ -124,12 +124,12 @@ describe('OrdersRepository', () => {
           order = await ordersRepository.create(orderStubForCreate());
         });
 
-        test('then it should call the userModel', () => {
+        test('then it should call the orderModel', () => {
           expect(saveSpy).toHaveBeenCalled();
           expect(constructorSpy).toHaveBeenCalledWith(orderStubForCreate());
         });
 
-        test('then it should return a user', () => {
+        test('then it should return a oder', () => {
           expect(order).toEqual(orderStub());
         });
       });
