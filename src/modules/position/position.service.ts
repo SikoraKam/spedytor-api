@@ -51,10 +51,6 @@ export class PositionService {
     return this.positionRepo.update({ _id: id }, updatePositionDto);
   }
 
-  async deleteById(id: mongoose.Types.ObjectId) {
-    await this.positionRepo.delete({ _id: id });
-  }
-
   async deleteByProviderId(providerId: string) {
     await this.positionRepo.delete({
       provider: new mongoose.Types.ObjectId(providerId),
