@@ -99,20 +99,44 @@ describe('UsersRepository', () => {
         });
       });
     });
+  });
 
-    // describe('create', () => {
-    //   describe('when create is called', () => {
-    //     let user: User;
-    //
-    //     beforeEach(async () => {
-    //       jest.spyOn(userModel, 'save');
-    //       user = await usersRepository.create(userStub());
-    //     });
-    //
-    //     test('then it should return a user', () => {
-    //       expect(user).toEqual(userStub());
-    //     });
-    //   });
-    // });
+  describe('create operations', () => {
+    beforeEach(async () => {
+      const moduleRef = await Test.createTestingModule({
+        providers: [
+          UserRepository,
+          {
+            provide: getModelToken(User.name),
+            useValue: UserModel,
+          },
+        ],
+      }).compile();
+
+      usersRepository = moduleRef.get<UserRepository>(UserRepository);
+    });
+
+    describe('create', () => {
+      describe('when create is called', () => {
+        let user: User;
+        let saveSpy: jest.SpyInstance;
+        let constructorSpy: jest.SpyInstance;
+
+        beforeEach(async () => {
+          saveSpy = jest.spyOn(UserModel.prototype, 'save');
+          constructorSpy = jest.spyOn(UserModel.prototype, 'constructorSpy');
+          user = await usersRepository.create(userStub());
+        });
+
+        test('then it should call the userModel', () => {
+          expect(saveSpy).toHaveBeenCalled();
+          expect(constructorSpy).toHaveBeenCalledWith(userStub());
+        });
+
+        test('then it should return a user', () => {
+          expect(user).toEqual(userStub());
+        });
+      });
+    });
   });
 });
