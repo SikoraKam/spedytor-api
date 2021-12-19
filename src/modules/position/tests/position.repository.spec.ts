@@ -5,6 +5,7 @@ import { PositionRepository } from '../position.repository';
 import { PositionModel } from './support/position.model';
 import { Position, PositionDocument } from '../position.schema';
 import { positionStub } from './positionStub';
+import { NotFoundException } from '@nestjs/common';
 
 describe('PositionRepository', () => {
   let repository: PositionRepository;
@@ -91,6 +92,31 @@ describe('PositionRepository', () => {
 
         test('then it should return a position', () => {
           expect(position).toEqual(positionStub());
+        });
+      });
+    });
+
+    describe('delete', () => {
+      describe('when delete is called', () => {
+        beforeEach(async () => {
+          jest.spyOn(model, 'findOneAndDelete');
+        });
+
+        test('then it should call the positionModel', async () => {
+          try {
+            await repository.delete(filterQuery);
+            expect(model.findOneAndDelete).toBeCalledWith(filterQuery);
+          } catch (e) {}
+        });
+
+        test('if no position was found should throw error', async () => {
+          try {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            await repository.delete(false);
+          } catch (e) {
+            expect(e).toBeInstanceOf(NotFoundException);
+          }
         });
       });
     });

@@ -1,6 +1,7 @@
 import { MockModel } from '../../../../database/support/mock.model';
 import { positionStub } from '../positionStub';
 import { Position } from '../../position.schema';
+import { NotFoundException } from '@nestjs/common';
 
 export class PositionModel extends MockModel<Position> {
   protected entityStub = positionStub();
@@ -27,5 +28,11 @@ export class PositionModel extends MockModel<Position> {
     return {
       populate: (): Position => this.entityStub,
     };
+  }
+
+  findOneAndDelete(filterQuery): void {
+    if (!filterQuery) {
+      throw new NotFoundException();
+    }
   }
 }
