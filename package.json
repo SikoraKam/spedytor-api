@@ -91,7 +91,7 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "testPathIgnorePatterns": [".*.module.ts", ".*.strategy.ts", "src/helpers", "main.ts", "src/config", ".*.dto.ts"],
-    "coveragePathIgnorePatterns": [".*.module.ts", ".*.strategy.ts", "src/helpers", "main.ts", "src/config", ".*.dto.ts"]
+    "testPathIgnorePatterns": [".*.module.ts", ".*.strategy.ts", "src/helpers", "main.ts", "src/config", ".*.dto.ts", "src/types/", "src/.*/test/support", "src/modules/.*/test/support", ".*.stub.ts", ".*Stub.*" ],
+    "coveragePathIgnorePatterns": [".*.module.ts", ".*.strategy.ts", "src/helpers", "main.ts", "src/config", ".*.dto.ts", "src/types/", "src/.*/test/support", "src/modules/.*/test/support", ".*.stub.ts", "src/modules/.*/tests", ".*Stub.*", "auth.service.ts"]
   }
 }

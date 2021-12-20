@@ -30,9 +30,11 @@ export class PositionModel extends MockModel<Position> {
     };
   }
 
-  findOneAndDelete(filterQuery): void {
+  findOneAndDelete(filterQuery): boolean {
     if (!filterQuery) {
-      throw new NotFoundException();
+      // throw new NotFoundException();
+      return false;
     }
+    return true;
   }
 }

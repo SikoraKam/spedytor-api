@@ -118,6 +118,15 @@ describe('PositionRepository', () => {
             expect(e).toBeInstanceOf(NotFoundException);
           }
         });
+
+        test('should throw error', async () => {
+          try {
+            const result = await model.findOneAndDelete(false);
+            expect(result).toBeFalsy();
+          } catch (e) {
+            expect(e).toBeInstanceOf(NotFoundException);
+          }
+        });
       });
     });
   });

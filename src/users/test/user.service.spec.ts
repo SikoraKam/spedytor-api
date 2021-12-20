@@ -348,6 +348,23 @@ describe('UserService', () => {
           { code: '', expire_timestamp: 0, created_timestamp: 0 },
         );
       });
+
+      test('if user was not found should throw exception', async () => {
+        try {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          jest.spyOn(usersService, 'findUserByEmail').mockResolvedValue(false);
+          user = await usersService.updatePassword(
+            '12345',
+            'password',
+            userStubWithTypeProvider().email,
+          );
+          expect(user).toBeFalsy();
+        } catch (e) {
+          expect(e).toBeInstanceOf(HttpException);
+        }
+      });
+
       test('then should return user', async () => {
         user = await usersService.updatePassword(
           '12345',
