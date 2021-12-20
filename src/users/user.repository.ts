@@ -28,7 +28,7 @@ export class UserRepository {
     profileType: ProfileType;
     name: string;
     email: string;
-  }): Promise<UserDocument> {
+  }): Promise<User> {
     const newUser = new this.userModel(user);
     return newUser.save();
   }

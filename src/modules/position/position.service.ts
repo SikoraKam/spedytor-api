@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { PositionRepository } from './position.repository';
 import { Position } from './position.schema';
 import * as mongoose from 'mongoose';
-import { CreatePositionDto } from '../../types/positions/CreatePositionDto';
 import { UpdatePositionDto } from '../../types/positions/UpdatePositionDto';
 
 @Injectable()
@@ -50,10 +49,6 @@ export class PositionService {
     updatePositionDto: UpdatePositionDto,
   ): Promise<Position> {
     return this.positionRepo.update({ _id: id }, updatePositionDto);
-  }
-
-  async deleteById(id: mongoose.Types.ObjectId) {
-    await this.positionRepo.delete({ _id: id });
   }
 
   async deleteByProviderId(providerId: string) {
